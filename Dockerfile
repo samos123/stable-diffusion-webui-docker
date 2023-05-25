@@ -25,7 +25,7 @@ FROM bash:alpine3.15 as models
 RUN apk add parallel aria2
 COPY . /docker
 RUN chmod +x /docker/download.sh
-RUN ./docker/download.sh
+RUN --mount=type=cache,target=/data ./docker/download.sh && cp -r /data /models
 
 FROM python:3.10.9-slim
 
@@ -54,7 +54,7 @@ ENV ROOT=/stable-diffusion-webui
 
 
 COPY --from=download /repositories/ ${ROOT}/repositories/
-COPY --from=models /data/ /data/
+COPY --from=models /models/ /data/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/data/* ${ROOT}/interrogate
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
