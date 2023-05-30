@@ -16,7 +16,7 @@ docker logs sd
 ```
 You should see a line that shows `Running on local URL:  http://0.0.0.0:7860`
 
-Now you can go to your browser at url [http://localhost:7860](http://localhost:7860] and
+Now you can go to your browser at url [http://localhost:7860](http://localhost:7860) and
 you should see the Stable Diffusion Web UI.
 
 
